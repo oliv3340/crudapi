@@ -1,0 +1,9 @@
+name: CI
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci:
+    uses: oliv3340/reusable-workflows-go/.github/workflows/go-ci.yml@v1.0.0

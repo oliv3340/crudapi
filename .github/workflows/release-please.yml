@@ -1,0 +1,15 @@
+name: Release Please
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+      uses: oliv3340/reusable-workflows-go/.github/workflows/go-release.yml@v1.0.0
+      secrets:
+        release-secret: ${{secrets.RELEASE_PLEASE}}
