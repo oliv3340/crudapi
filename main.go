@@ -2,10 +2,34 @@ package main
 
 import (
 	"context"
+	"crudapi/handlers"
 	"log"
+	"os"
 
+	"cloud.google.com/go/firestore"
+	firebase "firebase.google.com/go"
+	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
+
+func initFirebaseClient(ctx context.Context) (*firestore.Client, error) {
+	conf := &firebase.Config{
+		ProjectID: os.Getenv("GCLOUD_PROJECT_ID"),
+	}
+
+	app, err := firebase.NewApp(ctx, conf)
+	if err != nil {
+		log.Printf("error, initializing app : %v", err)
+		return nil, err
+	}
+	client, err := app.Firestore(ctx)
+	if err != nil {
+		log.Printf("error, initializing client : %v", err)
+		return nil, err
+	}
+
+	return client, err
+}
 
 func main() {
 	err := godotenv.Load(".env")
@@ -20,15 +44,16 @@ func main() {
 		log.Printf("error creating firestore client: %v", err)
 		return
 	}
-	collection := client.Collection("albums").NewDoc()
-	log.Printf("set value in collection")
-	result, err := collection.Set(ctx, map[string]interface{}{
-		"ID": "1", "Title": "Blue Train", "Artist": "John Coltrane", "Price": 56.99,
-	})
 
-	if err != nil {
-		log.Printf("error creating default value: %v", err)
-	}
+	router := gin.Default()
 
-	log.Printf("Result: %v", result)
+	router.GET("/api/health", handlers.HealthCheckerHandler())
+
+	router.POST("/album", handlers.CreateAlbumHandler(client))
+	router.GET("/albums", handlers.ListAlbumsHandler(client))
+	router.GET("/album/:id", handlers.GetAlbumByIDHandler(client))
+	router.PATCH("/album/:id", handlers.UpdateAlbumByIDHandler(client))
+	router.DELETE("/album/:id", handlers.DeleteAlbumByIDHandler(client))
+
+	router.Run("localhost:8081")
 }
