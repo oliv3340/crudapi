@@ -15,13 +15,19 @@ import (
 // @Tags         albums
 // @Accept       json
 // @Produce      json
+// @Param        title    query     string  false  "name search by title"  Format(string)
 // @Success      200  {array}   types.Album
 // @Router       /albums [get]
 func ListAlbumsHandler(client *firestore.Client) func(c *gin.Context) {
 
 	return func(c *gin.Context) {
 		var result []types.Album
-		iter := client.Collection(types.ALBUM_COLLECTION).Documents(c)
+		title := c.Request.URL.Query().Get("title")
+		query := client.Collection(types.ALBUM_COLLECTION)
+		iter := query.Documents(c)
+		if title != "" {
+			iter = query.Where("title", "==", title).Documents(c)
+		}
 		for {
 			doc, err := iter.Next()
 			if err == iterator.Done {

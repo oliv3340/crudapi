@@ -9,7 +9,7 @@ import (
 )
 
 // GetAlbumByID godoc
-// @Summary      Get an account
+// @Summary      Get an album
 // @Description  get an album by id
 // @Tags         album
 // @Accept       json

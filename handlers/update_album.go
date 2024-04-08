@@ -10,7 +10,7 @@ import (
 )
 
 // UpdateAlbumByID godoc
-// @Summary      Update an account
+// @Summary      Update an album
 // @Description  update an album by id
 // @Tags         album
 // @Accept       json

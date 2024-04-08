@@ -9,7 +9,7 @@ import (
 )
 
 // DeleteAlbumByID godoc
-// @Summary      Delete an account
+// @Summary      Delete an album
 // @Description  delete an album
 // @Tags         album
 // @Accept       json
