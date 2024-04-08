@@ -8,6 +8,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// DeleteAlbumByID godoc
+// @Summary      Delete an album
+// @Description  delete an album
+// @Tags         album
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "Account ID"
+// @Success      200  {object}  types.Album
+// @Router       /albums/{id} [delete]
 func DeleteAlbumByIDHandler(client *firestore.Client) func(c *gin.Context) {
 	return func(c *gin.Context) {
 		id := c.Param("id")

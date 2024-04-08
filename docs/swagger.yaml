@@ -1,0 +1,133 @@
+definitions:
+  types.Album:
+    properties:
+      artist:
+        type: string
+      id:
+        type: string
+      price:
+        type: number
+      title:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /albums:
+    get:
+      consumes:
+      - application/json
+      description: get all albums
+      parameters:
+      - description: name search by title
+        format: string
+        in: query
+        name: title
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/types.Album'
+            type: array
+      summary: List Albums
+      tags:
+      - albums
+    post:
+      consumes:
+      - application/json
+      description: create an album
+      parameters:
+      - description: Album title
+        in: body
+        name: title
+        required: true
+        schema:
+          type: string
+      - description: Album artist
+        in: body
+        name: artist
+        required: true
+        schema:
+          type: string
+      - description: Album price
+        in: body
+        name: price
+        required: true
+        schema:
+          type: number
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Album'
+      summary: Create an album
+      tags:
+      - album
+  /albums/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete an album
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Album'
+      summary: Delete an album
+      tags:
+      - album
+    get:
+      consumes:
+      - application/json
+      description: get an album by id
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Album'
+      summary: Get an album
+      tags:
+      - album
+    patch:
+      consumes:
+      - application/json
+      description: update an album by id
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Album'
+      summary: Update an album
+      tags:
+      - album
+swagger: "2.0"

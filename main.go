@@ -10,6 +10,10 @@ import (
 	firebase "firebase.google.com/go"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+
+	"crudapi/docs"
 )
 
 func initFirebaseClient(ctx context.Context) (*firestore.Client, error) {
@@ -45,16 +49,29 @@ func main() {
 		return
 	}
 
+	// programmatically set swagger info
+	docs.SwaggerInfo.Title = "Swagger Album API"
+	docs.SwaggerInfo.Description = "This is a sample server Album server."
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Host = "localhost"
+	docs.SwaggerInfo.BasePath = "/api/v1"
+	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 	router := gin.Default()
 
-	router.GET("/api/health", handlers.HealthCheckerHandler())
+	v1 := router.Group("/api/v1")
+	{
+		v1.GET("health", handlers.HealthCheckerHandler())
+		album := v1.Group("/albums")
+		{
+			album.POST("", handlers.CreateAlbumHandler(client))
+			album.GET("", handlers.ListAlbumsHandler(client))
+			album.GET(":id", handlers.GetAlbumByIDHandler(client))
+			album.PATCH(":id", handlers.UpdateAlbumByIDHandler(client))
+			album.DELETE(":id", handlers.DeleteAlbumByIDHandler(client))
 
-	router.POST("/album", handlers.CreateAlbumHandler(client))
-	router.GET("/albums", handlers.ListAlbumsHandler(client))
-	router.GET("/album/:id", handlers.GetAlbumByIDHandler(client))
-	router.PATCH("/album/:id", handlers.UpdateAlbumByIDHandler(client))
-	router.DELETE("/album/:id", handlers.DeleteAlbumByIDHandler(client))
-
+		}
+	}
+	router.GET("swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	if err := router.Run("localhost:8085"); err != nil {
 		log.Fatalln(err)
 	}
