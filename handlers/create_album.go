@@ -9,6 +9,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// CreateAlbum godoc
+// @Summary      Create an album
+// @Description  create an album
+// @Tags         album
+// @Accept       json
+// @Produce      json
+// @Param        title   body      string  true  "Album title"
+// @Param        artist   body      string  true  "Album artist"
+// @Param        price   body      float64  true  "Album price"
+// @Success      200  {object}  types.Album
+// @Router       /albums [POST]
 func CreateAlbumHandler(client *firestore.Client) func(c *gin.Context) {
 
 	return func(c *gin.Context) {

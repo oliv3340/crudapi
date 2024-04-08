@@ -9,6 +9,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// UpdateAlbumByID godoc
+// @Summary      Update an account
+// @Description  update an album by id
+// @Tags         album
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "Account ID"
+// @Success      200  {object}  types.Album
+// @Router       /albums/{id} [patch]
 func UpdateAlbumByIDHandler(client *firestore.Client) func(c *gin.Context) {
 	return func(c *gin.Context) {
 		var album types.Album

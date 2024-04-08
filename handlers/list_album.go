@@ -9,6 +9,14 @@ import (
 	"google.golang.org/api/iterator"
 )
 
+// ListAlbums godoc
+// @Summary      List Albums
+// @Description  get all albums
+// @Tags         albums
+// @Accept       json
+// @Produce      json
+// @Success      200  {array}   types.Album
+// @Router       /albums [get]
 func ListAlbumsHandler(client *firestore.Client) func(c *gin.Context) {
 
 	return func(c *gin.Context) {
