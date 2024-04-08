@@ -92,5 +92,7 @@ func main() {
 		}
 	}
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	router.Run("localhost:8085")
+	if err := router.Run("localhost:8085"); err != nil {
+		log.Fatalln(err)
+	}
 }
