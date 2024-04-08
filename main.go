@@ -55,5 +55,7 @@ func main() {
 	router.PATCH("/album/:id", handlers.UpdateAlbumByIDHandler(client))
 	router.DELETE("/album/:id", handlers.DeleteAlbumByIDHandler(client))
 
-	router.Run("localhost:8081")
+	if err := router.Run("localhost:8085"); err != nil {
+		log.Fatalln(err)
+	}
 }
