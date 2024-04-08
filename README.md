@@ -1,6 +1,6 @@
 # CRUD APi
 
-Simple CRUD API wirtten in `Go` with firestore db.
+Simple CRUD API wirtten in `Go` with firestore db. This project is just a little project to learn few Go skills and to manipulate object in Firestore.
 
 ## Requirements
 
@@ -8,9 +8,27 @@ This project use firestore emulator. You need to to set it up according to your 
 - install `firestore-cli`
 - change `.env` and `.firebaserc` project id value to yours
 
+Then run :
+
+```bash
+$ go mod tidy
+$ go run main.go
+```
+
 ## Documentation
 
 This project use `swagger` as documentation. You can run this API and find it at http://localhost:8085/swagger/index.html
+
+This API manage Album object based on that go structure
+
+```go
+type Album struct {
+	ID     string  `json:"id"`
+	Title  string  `json:"title"`
+	Artist string  `json:"artist"`
+	Price  float64 `json:"price"`
+}
+```
 
 ## Endpoints
 
