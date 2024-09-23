@@ -6,6 +6,7 @@ require (
 	cloud.google.com/go/firestore v1.15.0
 	firebase.google.com/go v3.13.0+incompatible
 	github.com/gin-gonic/gin v1.9.1
+	github.com/swaggo/files v1.0.1
 	github.com/swaggo/swag v1.16.3
 )
 
@@ -56,7 +57,7 @@ require (
 	github.com/googleapis/enterprise-certificate-proxy v0.3.2 // indirect
 	github.com/googleapis/gax-go/v2 v2.12.3 // indirect
 	github.com/joho/godotenv v1.5.1
-	github.com/swaggo/files v1.0.1
+	github.com/swaggo/files/v2 v2.0.1
 	github.com/swaggo/gin-swagger v1.6.0
 	go.opencensus.io v0.24.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.49.0 // indirect
