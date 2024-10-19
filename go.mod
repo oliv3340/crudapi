@@ -6,7 +6,7 @@ require (
 	cloud.google.com/go/firestore v1.15.0
 	firebase.google.com/go v3.13.0+incompatible
 	github.com/gin-gonic/gin v1.9.1
-	github.com/swaggo/swag v1.16.3
+	github.com/swaggo/swag v1.16.4
 )
 
 require (
